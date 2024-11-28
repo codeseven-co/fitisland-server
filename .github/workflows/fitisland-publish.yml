@@ -35,22 +35,31 @@ jobs:
       - name: Check build output
         run: ls -al build/libs
 
-      # JAR 파일을 Docker 컨텍스트로 이동
-      - name: Move JAR to Docker context
-        run: mv build/libs/*SNAPSHOT.jar ./app.jar
 
       # Docker 컨텍스트에서 JAR 파일 확인
       - name: Verify JAR file in context
         run: ls -al
-        
+
+      # JAR 파일을 Artifact로 저장
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-jar
+          path: build/libs/*SNAPSHOT.jar
 
   push_to_registry:
     name: Push to NCP Container Registry
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      # Artifact 다운로드
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-jar
+          path: .
+
+      # Docker Buildx 설정
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Login to NCP Container Registry
