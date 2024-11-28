@@ -1,7 +1,0 @@
-services:
-  spring_app:
-    container_name: fitisland-server   # 컨테이너 이름 지정
-    build: .                          # 현재 디렉토리의 Dockerfile 사용
-    image: ${NCP_CONTAINER_REGISTRY}/fitisland:latest  # 빌드될 이미지 이름
-    ports:
-      - "8080:8080"                   # 호스트:컨테이너 포트 매핑
