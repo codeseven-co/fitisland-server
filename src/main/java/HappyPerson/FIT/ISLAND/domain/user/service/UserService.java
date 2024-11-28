@@ -5,6 +5,7 @@ import HappyPerson.FIT.ISLAND.domain.user.User;
 import HappyPerson.FIT.ISLAND.domain.user.dto.UserSignUpDto;
 import HappyPerson.FIT.ISLAND.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();;
 
     public void signUp(UserSignUpDto userSignUpDto) throws Exception {
 
