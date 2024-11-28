@@ -6,29 +6,63 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
+      # 코드 체크아웃
       - uses: actions/checkout@v4
 
+      # JDK 21 설정
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
 
+      # Gradle 설치
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
 
+      # Gradle Wrapper 생성
       - name: Generate Gradle Wrapper
         run: gradle wrapper
 
+      # Gradle 빌드
       - name: Build with Gradle
         run: ./gradlew build
 
+      # 빌드 결과 확인
+      - name: Check build output
+        run: ls -al build/libs
+
+      # Docker 컨텍스트에서 JAR 파일 확인
+      - name: Verify JAR file in context
+        run: ls -al
+
+      # JAR 파일을 Artifact로 저장
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-jar
+          path: build/libs/*SNAPSHOT.jar
+
+  push_to_registry:
+    name: Push to NCP Container Registry
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # Artifact 다운로드
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-jar
+          path: .
+
+      # Docker Buildx 설정
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      # NCP Container Registry 로그인
       - name: Login to NCP Container Registry
         uses: docker/login-action@v2
         with:
@@ -36,6 +70,7 @@ jobs:
           username: ${{ secrets.NCP_ACCESS_KEY }}
           password: ${{ secrets.NCP_SECRET_KEY }}
 
+      # Docker 이미지 빌드 및 푸시
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
@@ -44,6 +79,11 @@ jobs:
           push: true
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland:latest
 
+  pull_from_registry:
+    name: Connect server ssh and pull from container registry
+    needs: push_to_registry
+    runs-on: ubuntu-latest
+    steps:
       - name: Connect via SSH and Deploy
         uses: appleboy/ssh-action@master
         with:
