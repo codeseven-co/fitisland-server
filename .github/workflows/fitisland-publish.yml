@@ -56,7 +56,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: app-jar
-          path: /app
+          path: .
+      # 빌드 결과 확인
+      - name: Check build output
+        run: ls -al
 
       # Docker Buildx 설정
       - name: Set up Docker Buildx
