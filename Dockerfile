@@ -1,7 +1,7 @@
 FROM openjdk:21-jdk
 
 # JAR 파일 복사
-COPY build/libs/*SNAPSHOT.jar app.jar
+COPY app.jar app.jar
 
 # 포트 노출
 EXPOSE 8080
