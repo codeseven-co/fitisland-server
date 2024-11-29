@@ -4,7 +4,7 @@ FROM openjdk:21-jdk-slim
 #컨테이너 내부에서 작업할 디렉토리를 /app으로 설정합니다
 WORKDIR /app
 
-#로컬의 build/libs 디렉토리에서 SNAPSHOT.jar로 끝나는 파일을
+#디렉토리에서 SNAPSHOT.jar로 끝나는 파일을
 #컨테이너의 /app 디렉토리에 app.jar라는 이름으로 복사합니다
 COPY *SNAPSHOT.jar app.jar
 
