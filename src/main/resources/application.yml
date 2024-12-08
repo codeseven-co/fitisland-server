@@ -1,0 +1,6 @@
+# application.yml
+spring:
+  config:
+    import:
+      - application-database.properties
+      - application-security.properties
