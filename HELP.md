@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'HappyPerson.FIT ISLAND' is invalid and this project uses 'HappyPerson.FIT.ISLAND' instead.
+* The original package name 'happyperson.FIT ISLAND' is invalid and this project uses 'happyperson.FIT.ISLAND' instead.
 
 # Getting Started
 
