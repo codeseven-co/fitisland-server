@@ -42,7 +42,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
 	//.env 라이브러리 추가
-	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+	implementation 'me.paulschwarz:spring-dotenv:4.0.0'
 
 }
 
