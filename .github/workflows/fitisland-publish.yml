@@ -10,6 +10,8 @@ jobs:
   # job1 - jar 빌드
   build:
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
     steps:
       # 코드 체크아웃
       - uses: actions/checkout@v4
