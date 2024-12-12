@@ -34,7 +34,7 @@ jobs:
       #환경변수 추가
       - name: Create .env file
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "${{ secrets.ENV_FILE }}" > src/main/resources/.env
 
       # Gradle 빌드
       - name: Build with Gradle
