@@ -118,7 +118,7 @@ jobs:
           # 사용하지 않는 도커 이미지 삭제
           script: |
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland
-            docker stop $(docker ps -a -q)
-            docker rm $(docker ps -a -q)
+            docker stop $(docker ps -aq --filter "ancestor=${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland")
+            docker rm $(docker ps -aq --filter "ancestor=${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland")
             docker run -d -p 8080:8080 ${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland
             docker image prune -f
