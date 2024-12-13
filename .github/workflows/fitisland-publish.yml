@@ -118,7 +118,10 @@ jobs:
           # 사용하지 않는 도커 이미지 삭제
           script: |
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland
-            docker stop $(docker ps -aq --filter "ancestor=${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland")
-            docker rm $(docker ps -aq --filter "ancestor=${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland")
-            docker run -d -p 8080:8080 ${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland
-            docker image prune -f
+            # 기존 컨테이너 중지
+            docker stop $(docker ps -aq --filter "name=fitisland-app") || true
+            # 컨테이너 제거
+            docker rm $(docker ps -aq --filter "name=fitisland-app") || true
+            # 새 컨테이너 실행 (이름 고정)
+            docker run -d -p 8080:8080 --name fitisland-app ${{ secrets.NCP_CONTAINER_REGISTRY }}/fitisland
+            docker image prune -fa
