@@ -1,7 +1,23 @@
-# application.yml
+# 기본 설정
+spring:
+  profiles:
+    active: local
+    group:
+      local: local
+      deploy: deploy
+---
 spring:
   config:
-    import:
-      - application-database.properties
-      - application-security.properties
-
+    import: application-security.properties
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: application-h2database.yml
+---
+spring:
+  config:
+    activate:
+      on-profile: deploy
+    import: application-database.properties

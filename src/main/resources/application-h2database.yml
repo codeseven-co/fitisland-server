@@ -1,0 +1,24 @@
+spring:
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    #    url: jdbc:h2:mem:fitislanddb
+    url: jdbc:h2:mem:fitisland;
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console # H2 ?? ?? ?? (?? ??)
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+#        show_sql: true
+        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug
