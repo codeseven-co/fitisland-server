@@ -2,14 +2,13 @@ spring:
 
   datasource:
     driver-class-name: org.h2.Driver
-    #    url: jdbc:h2:mem:fitislanddb
     url: jdbc:h2:mem:fitisland;
     username: sa
     password:
   h2:
     console:
       enabled: true
-      path: /h2-console # H2 ?? ?? ?? (?? ??)
+      path: /h2-console
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
