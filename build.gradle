@@ -53,6 +53,9 @@ dependencies {
 	//bucket 사용을 위한 aws-s3 라이브러리 추가
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.11.238'
 
+	//jaxb
+	implementation 'javax.xml.bind:jaxb-api:2.3.0'
+
 	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'

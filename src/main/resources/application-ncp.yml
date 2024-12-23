@@ -6,6 +6,7 @@ ncp:
   region-name: kr-standard
   object-storage:
     bucket-name: fitisland-exercise-image-bucket
+    folder-name: images
 
 # 파일 업로드 관련 설정
 spring:

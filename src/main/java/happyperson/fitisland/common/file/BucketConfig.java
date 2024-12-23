@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BucketConfig {
 
+    /**
+     * 이 부분은 네이버 클라우드 플랫폼 Object Storage에 접근하기 위한 S3 클라이언트를 설정하는 코드입니다.
+     */
     @Value("${ncp.end-point}")
     private String endPoint;
 
@@ -25,13 +28,10 @@ public class BucketConfig {
     @Value("${ncp.secret-key}")
     private String secretKey;
 
-    @Value("${ncp.object-storage.bucket-name}")
-    private String bucketName;
-
     @Bean
-    public AmazonS3Client amazonS3Client() {
+    public AmazonS3 amazonS3Client() {
 
-        return (AmazonS3Client) AmazonS3ClientBuilder
+        return AmazonS3ClientBuilder
             .standard()
             .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, regionName))
             .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
