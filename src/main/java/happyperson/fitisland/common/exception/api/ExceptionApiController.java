@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExceptionApiController {
 
-    @GetMapping("/exceptionTest/{id}")
+    @GetMapping("/test/exception/{id}")
     public String test(@PathVariable String id) throws Exception {
         if ("ex".equals(id)){
             throw new RuntimeException("잘못된 사용자");

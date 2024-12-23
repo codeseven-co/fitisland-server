@@ -19,12 +19,12 @@ public class UploadController {
 
     private final FileStore fileStore;
 
-    @GetMapping("/upload")
+    @GetMapping("/test/upload")
     public String showUploadForm() {
         return "uploadForm"; // uploadForm.html 파일 이름
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/test/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             UploadFile uploadFile = fileStore.storeFile(file);
