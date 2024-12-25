@@ -1,7 +1,7 @@
 package happyperson.fitisland.domain.onedayrecord.entity;
 
 import happyperson.fitisland.common.base.BaseEntity;
-import happyperson.fitisland.domain.oauthjwt.entity.UserEntity;
+import happyperson.fitisland.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +19,7 @@ public class OnedayRecord extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    private UserEntity userEntity;
+    private User userEntity;
     private int totalTime;
     private String memo;
 }
