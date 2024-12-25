@@ -5,9 +5,11 @@ import happyperson.fitisland.domain.oauthjwt.dto.GoogleResponse;
 import happyperson.fitisland.domain.oauthjwt.dto.NaverResponse;
 import happyperson.fitisland.domain.oauthjwt.dto.OAuth2Response;
 import happyperson.fitisland.domain.oauthjwt.dto.UserDTO;
-import happyperson.fitisland.domain.oauthjwt.entity.UserEntity;
-import happyperson.fitisland.domain.oauthjwt.repository.UserRepository;
+import happyperson.fitisland.domain.user.entity.User;
+import happyperson.fitisland.domain.user.repository.UserRepository;
+
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -38,45 +40,40 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if (registrationId.equals("naver")) {
 
             oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
-        }
-        else if (registrationId.equals("google")) {
+        } else if (registrationId.equals("google")) {
 
             oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
-        }
-        else {
+        } else {
             oAuth2Response = null;
         }
 
-        String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
+        String username = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 
         //DB에서 유저 정보 가져오기
-        Optional<UserEntity> existData = userRepository.findByUsername(username);
+        Optional<User> existData = userRepository.findByUsername(username);
 
-        UserEntity userEntity = existData.orElseGet(() -> {
+        User user = existData.orElseGet(() -> {
             // 사용자가 존재하지 않으면 새로운 UserEntity 생성
-            UserEntity newUserEntity = new UserEntity();
-            newUserEntity.setUsername(username);
-            newUserEntity.setEmail(oAuth2Response.getEmail());
-            newUserEntity.setName(oAuth2Response.getName());
-            newUserEntity.setRole("ROLE_USER");
-            return newUserEntity;
+            return User.builder()
+                    .username(username)
+                    .email(oAuth2Response.getEmail())
+                    .name(oAuth2Response.getName())
+                    .role("USER")
+                    .build();
         });
 
+        // TODO: 사용자가 존재한다고 정보를 업데이트 하는게 맞는지?
         // 사용자가 존재하면 정보 업데이트
         if (existData.isPresent()) {
-            userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setName(oAuth2Response.getName());
+            user = User.builder()
+                    .email(oAuth2Response.getEmail())
+                    .name(oAuth2Response.getName())
+                    .build();
         }
 
         // UserEntity 저장
-        userRepository.save(userEntity);
+        userRepository.save(user);
 
-        // UserDTO 생성 및 CustomOAuth2User 반환
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(userEntity.getUsername());
-        userDTO.setName(userEntity.getName());
-        userDTO.setRole(userEntity.getRole());
-
-        return new CustomOAuth2User(userDTO);
+        return new CustomOAuth2User(user);
     }
 }

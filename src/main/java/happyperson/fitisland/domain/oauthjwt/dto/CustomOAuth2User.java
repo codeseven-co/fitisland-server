@@ -1,5 +1,6 @@
 package happyperson.fitisland.domain.oauthjwt.dto;
 
+import happyperson.fitisland.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -11,7 +12,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CustomOAuth2User implements OAuth2User {
 
-    private final UserDTO userDTO;
+    private final User user;
 
     @Override
     public Map<String, Object> getAttributes() {
@@ -24,7 +25,7 @@ public class CustomOAuth2User implements OAuth2User {
 
         Collection<GrantedAuthority> collection = new ArrayList<>();
 
-        collection.add((GrantedAuthority) userDTO::getRole);
+        collection.add((GrantedAuthority) user::getRole);
 
         return collection;
     }
@@ -32,11 +33,11 @@ public class CustomOAuth2User implements OAuth2User {
     @Override
     public String getName() {
 
-        return userDTO.getName();
+        return user.getName();
     }
 
     public String getUsername() {
 
-        return userDTO.getUsername();
+        return user.getUsername();
     }
 }
