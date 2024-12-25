@@ -35,7 +35,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
-        String token = jwtUtil.createJwt(username, role, 60*60*60L);
+        String token = jwtUtil.createJwt(username, role, 60 * 60 * 1000L); // 1시간
 
         response.addCookie(createCookie("Authorization", token));
         response.sendRedirect("https://fitisland-client.vercel.app");
