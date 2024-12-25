@@ -11,7 +11,10 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/**")
-                .exposedHeaders("Set-Cookie")
-                .allowedOrigins("http://localhost:3000", "https://fitisland-client.vercel.app");
+                .exposedHeaders("Set-Cookie", "Authentication") // 반환하는 헤더 값 지정
+                .allowedOrigins("http://localhost:3000", "https://fitisland-client.vercel.app")
+                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE") // 모든 메서드 허용
+                .allowedHeaders("*") // 모든 헤더 허용
+                .allowCredentials(true); // 인증 정보 허용
     }
 }

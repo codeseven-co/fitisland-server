@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,10 +21,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@Profile("deploy") // local 프로파일에서만 활성화
+@Profile("deploy") // deploy 프로파일에서만 활성화
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -37,8 +39,11 @@ public class SecurityConfig {
 
         http
             .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
+
+                // cors setting
                 CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://fitisland-client.vercel.app"));
+
+                configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://fitisland-client.vercel.app"));
                 configuration.setAllowedMethods(Collections.singletonList("*"));
                 configuration.setAllowCredentials(true);
                 configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -57,11 +62,10 @@ public class SecurityConfig {
                 .successHandler(customSuccessHandler)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(PathRequest.toH2Console()).permitAll() // H2 콘솔 경로 허용
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated())
-            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())) // H2 콘솔 사용을 위한 설정
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            .sessionManagement(session -> session
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
