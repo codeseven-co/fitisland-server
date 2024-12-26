@@ -1,12 +1,12 @@
-package happyperson.fitisland.domain.exerciseguide.service;
+package happyperson.fitisland.domain.exercise.service;
 
-import happyperson.fitisland.domain.exerciseguide.dto.request.ExerciseGuideCreateRequest;
-import happyperson.fitisland.domain.exerciseguide.dto.response.ExerciseGuideCreateResponse;
-import happyperson.fitisland.domain.exerciseguide.dto.response.ExerciseGuideDetailResponse;
-import happyperson.fitisland.domain.exerciseguide.entity.ExerciseGuide;
-import happyperson.fitisland.domain.exerciseguide.exception.ExerciseGuideNotFoundException;
-import happyperson.fitisland.domain.exerciseguide.exception.ExerciseGuideUnauthorizedDeletionException;
-import happyperson.fitisland.domain.exerciseguide.repository.ExerciseGuideRepository;
+import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
+import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideCreateResponse;
+import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideDetailResponse;
+import happyperson.fitisland.domain.exercise.entity.ExerciseGuide;
+import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
+import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
+import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;

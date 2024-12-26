@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.exerciseguide.exception;
+package happyperson.fitisland.domain.exercise.exception;
 
 import happyperson.fitisland.common.exception.CustomException;
 import org.springframework.http.HttpStatus;

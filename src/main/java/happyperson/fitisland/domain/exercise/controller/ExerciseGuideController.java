@@ -1,31 +1,31 @@
-package happyperson.fitisland.domain.exerciseguide.controller;
-
-import happyperson.fitisland.domain.exerciseguide.dto.request.ExerciseGuideCreateRequest;
-import happyperson.fitisland.domain.exerciseguide.dto.response.ExerciseGuideCreateResponse;
-import happyperson.fitisland.domain.exerciseguide.dto.response.ExerciseGuideDetailResponse;
-import happyperson.fitisland.domain.exerciseguide.dto.response.ExerciseGuideUpdateResponse;
-import happyperson.fitisland.domain.exerciseguide.service.ExerciseGuideService;
+package happyperson.fitisland.domain.exercise.controller;
+;
+import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
+import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideCreateResponse;
+import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideDetailResponse;
+import happyperson.fitisland.domain.exercise.service.ExerciseGuideService;
+import happyperson.fitisland.domain.exercise.service.LikeService;
+import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
 import jakarta.validation.Valid;
-import lombok.Getter;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/exerciseGuide")
+@RequestMapping("/api/exerciseGuide")
 public class ExerciseGuideController {
 
     private final ExerciseGuideService exerciseGuideService;

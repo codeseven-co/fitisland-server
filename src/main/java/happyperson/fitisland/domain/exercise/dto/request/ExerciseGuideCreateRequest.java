@@ -1,6 +1,6 @@
-package happyperson.fitisland.domain.exerciseguide.dto.request;
+package happyperson.fitisland.domain.exercise.dto.request;
 
-import happyperson.fitisland.domain.exerciseguide.entity.ExerciseCategory;
+import happyperson.fitisland.domain.exercise.entity.ExerciseCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
