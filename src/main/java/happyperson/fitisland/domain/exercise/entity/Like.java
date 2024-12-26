@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Slf4j
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "Likes")
 public class Like extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
