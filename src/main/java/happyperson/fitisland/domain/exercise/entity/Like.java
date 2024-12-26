@@ -31,7 +31,7 @@ public class Like extends BaseEntity {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_guide")
+    @JoinColumn(name = "exercise_guide_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ExerciseGuide exerciseGuide;
 
