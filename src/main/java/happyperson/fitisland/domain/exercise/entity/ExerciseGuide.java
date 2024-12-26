@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.exerciseguide.entity;
+package happyperson.fitisland.domain.exercise.entity;
 
 import happyperson.fitisland.common.base.BaseEntity;
 import jakarta.persistence.Entity;

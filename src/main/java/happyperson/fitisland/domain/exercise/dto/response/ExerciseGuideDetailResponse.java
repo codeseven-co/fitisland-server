@@ -1,8 +1,8 @@
-package happyperson.fitisland.domain.exerciseguide.dto.response;
+package happyperson.fitisland.domain.exercise.dto.response;
 
 
-import happyperson.fitisland.domain.exerciseguide.entity.ExerciseCategory;
-import happyperson.fitisland.domain.exerciseguide.entity.ExerciseGuide;
+import happyperson.fitisland.domain.exercise.entity.ExerciseCategory;
+import happyperson.fitisland.domain.exercise.entity.ExerciseGuide;
 import lombok.Builder;
 
 @Builder
