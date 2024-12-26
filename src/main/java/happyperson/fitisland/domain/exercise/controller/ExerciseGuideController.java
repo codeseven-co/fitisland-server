@@ -1,5 +1,5 @@
 package happyperson.fitisland.domain.exercise.controller;
-;
+
 import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
 import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideCreateResponse;
 import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideDetailResponse;
