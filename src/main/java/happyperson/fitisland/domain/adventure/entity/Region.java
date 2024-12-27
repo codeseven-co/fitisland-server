@@ -17,6 +17,7 @@ public class Region {
     // 지역 이름
     private String name;
     // 지역 설명 (현재 markdown)
+    @Column(columnDefinition = "TEXT")
     private String description;
     // 정렬
     private Integer sort;

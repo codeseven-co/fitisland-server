@@ -18,4 +18,22 @@ public class RegionResponse {
             this.sort = region.getSort();
         }
     }
+
+    @Data
+    public static class RegionDtoV2 {
+        private Long id;
+        private String name;
+        private String description;
+        private Integer sort;
+        private ContinentResponse.ContinentDtoV2 continent;
+
+        @Builder
+        public RegionDtoV2(Region region) {
+            this.id = region.getId();
+            this.name = region.getName();
+            this.description = region.getDescription();
+            this.sort = region.getSort();
+            this.continent = new ContinentResponse.ContinentDtoV2(region.getContinent());
+        }
+    }
 }
