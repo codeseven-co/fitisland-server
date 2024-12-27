@@ -1,10 +1,6 @@
 package happyperson.fitisland.domain.user.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -49,11 +45,15 @@ public class User {
     @CreatedDate
     private LocalDateTime lastLoginAt;
 
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
     @Builder
     public User(
             Long id, String username, String password,
             String name, String nickname, String email, String role,
-            LocalDateTime createdAt, LocalDateTime lastLoginAt
+            LocalDateTime createdAt, LocalDateTime lastLoginAt,
+            Profile profile
     ) {
         this.id = id;
         this.username = username;
@@ -64,5 +64,6 @@ public class User {
         this.role = role;
         this.createdAt = createdAt;
         this.lastLoginAt = lastLoginAt;
+        this.profile = profile;
     }
 }

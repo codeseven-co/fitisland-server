@@ -21,4 +21,9 @@ public class UserController {
     public ResponseEntity<UserResponse.AccountDto> findAccount(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findAccount(id));
     }
+
+    @GetMapping("/{id}/profile")
+    public ResponseEntity<UserResponse.ProfileDto> findProfile(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findProfile(id));
+    }
 }
