@@ -28,4 +28,19 @@ public class ContinentResponse {
                     .collect(Collectors.toList());
         }
     }
+
+    @Data
+    public static class ContinentDtoV2 {
+        private Long id;
+        private String name;
+        private String detail;
+        private Integer max_progress;
+
+        public ContinentDtoV2(Continent continent) {
+            this.id = continent.getId();
+            this.name = continent.getName();
+            this.detail = continent.getDetail();
+            this.max_progress = continent.getMax_progress();
+        }
+    }
 }
