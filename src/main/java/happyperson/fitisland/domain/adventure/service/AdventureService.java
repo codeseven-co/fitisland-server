@@ -24,6 +24,7 @@ public class AdventureService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public RegionResponse.RegionDtoV2 findRegionBy(Long id) {
         return new RegionResponse.RegionDtoV2(regionRepository.getReferenceById(id));
     }
