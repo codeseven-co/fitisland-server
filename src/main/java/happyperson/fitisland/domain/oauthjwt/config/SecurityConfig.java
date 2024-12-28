@@ -55,12 +55,12 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
-            .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-            .oauth2Login(oauth2 -> oauth2
-                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                    .userService(customOAuth2UserService))
-                .successHandler(customSuccessHandler)
-            )
+//            .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+//            .oauth2Login(oauth2 -> oauth2
+//                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+//                    .userService(customOAuth2UserService))
+//                .successHandler(customSuccessHandler)
+//            )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated())
