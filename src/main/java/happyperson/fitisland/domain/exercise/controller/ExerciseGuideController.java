@@ -3,9 +3,11 @@ package happyperson.fitisland.domain.exercise.controller;
 import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideCreateResponse;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideListResponse;
 import happyperson.fitisland.domain.exercise.service.ExerciseGuideService;
 import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,10 +38,20 @@ public class ExerciseGuideController {
     @GetMapping("/{guideId}")
     public ExerciseGuideDetailResponse getExerciseGuide(
         @PathVariable("guideId") Long guideId,
-        @RequestParam("userId") Long userId
+        @RequestParam(value = "userId", required = false) Long userId // required = false 설정
     ) {
 
         return exerciseGuideService.findExerciseGuideDetail(guideId, userId);
+    }
+
+    /**
+     * 운동 가이드 목록 보기 검색기능
+     */
+    @GetMapping
+    public List<ExerciseGuideListResponse> getExerciseGuideList(
+        @RequestParam(value = "userId", required = false) Long userId // required = false 설정
+    ) {
+        return exerciseGuideService.getExerciseGuideList(userId);
     }
 
     /**
@@ -51,9 +63,5 @@ public class ExerciseGuideController {
      * 삭제(유저아이디수정하기)
      */
 
-    /**
-     * 운동 가이드 목록 보기
-     * 중요! 부위 별로 보이는 기능 구현 어떻게할지 생각
-     */
 
 }

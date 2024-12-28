@@ -3,11 +3,14 @@ package happyperson.fitisland.domain.exercise.service;
 import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideCreateResponse;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideListResponse;
 import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
 import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
 import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,8 +31,12 @@ public class ExerciseGuideService {
         ExerciseGuide savedExerciseGuide = exerciseGuideRepository.findById(guideId)
             .orElseThrow(ExerciseGuideNotFoundException::new);
 
-        Boolean isLike = savedExerciseGuide.getLikes().stream()
-            .anyMatch(like -> like.getUser().getId().equals(userId));
+        Boolean isLike = false;
+
+        if (userId != null) { // userId가 있을 경우에만 isLike 여부 확인
+            isLike = savedExerciseGuide.getLikes().stream()
+                .anyMatch(like -> like.getUser().getId().equals(userId));
+        }
 
         return ExerciseGuideDetailResponse.of(savedExerciseGuide, isLike);
     }
@@ -73,6 +80,18 @@ public class ExerciseGuideService {
     public ExerciseGuideCreateResponse saveExerciseGuide(ExerciseGuideCreateRequest request, UserDetails userDetails) {
 //        exerciseGuideRepository.save()
         return null;
+    }
+
+    public List<ExerciseGuideListResponse> getExerciseGuideList(Long userId) {
+        List<ExerciseGuide> exerciseGuides = exerciseGuideRepository.findAllWithLikes(); // 페이징 제외
+
+        return exerciseGuides.stream()
+            .map(exerciseGuide -> {
+                Boolean isLike = (userId != null) ? exerciseGuide.getLikes().stream()
+                    .anyMatch(like -> like.getUser().getId().equals(userId)) : null;
+                return ExerciseGuideListResponse.of(exerciseGuide, isLike); // of 메서드 사용
+            })
+            .collect(Collectors.toList());
     }
 
     /**
