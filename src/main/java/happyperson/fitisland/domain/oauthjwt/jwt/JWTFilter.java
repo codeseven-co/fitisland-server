@@ -69,6 +69,7 @@ public class JWTFilter extends OncePerRequestFilter {
 //        UserDTO userDTO = new UserDTO();
 //        userDTO.setUsername(username);
 //        userDTO.setRole(role);
+
         User user = User.builder()
             .username(username)
             .role(role)

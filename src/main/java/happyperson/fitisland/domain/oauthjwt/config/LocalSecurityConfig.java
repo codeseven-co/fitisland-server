@@ -13,7 +13,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Profile("local") // local 프로파일에서만 활성화
+@Profile("local") // local 프로파일
 @Configuration
 @EnableWebSecurity
 public class LocalSecurityConfig {
@@ -44,7 +44,7 @@ public class LocalSecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)  // 개발 편의를 위해 비활성화
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                .requestMatchers("/api/public/**").permitAll()  // 공개 API
+                .requestMatchers("/api/**").permitAll()  // 공개 API
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers
