@@ -1,12 +1,9 @@
-package happyperson.fitisland.domain.onedayrecord.entity;
+package happyperson.fitisland.domain.exercise.entity.workout;
 
-import happyperson.fitisland.common.base.BaseEntity;
-import happyperson.fitisland.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,12 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OnedayRecord extends BaseEntity {
+public class BodyType {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
-    private User userEntity;
-    private int totalTime;
-    private String memo;
+
+    private String type;
 }

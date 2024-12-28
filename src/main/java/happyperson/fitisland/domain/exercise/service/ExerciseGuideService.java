@@ -1,21 +1,24 @@
 package happyperson.fitisland.domain.exercise.service;
 
 import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
-import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideCreateResponse;
-import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideDetailResponse;
-import happyperson.fitisland.domain.exercise.entity.ExerciseGuide;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideCreateResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
+import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
 import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
-import lombok.AllArgsConstructor;
+import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ExerciseGuideService {
 
-    private ExerciseGuideRepository exerciseGuideRepository;
+    private final ExerciseGuideRepository exerciseGuideRepository;
 
     /**
      * 운동가이드 조회
@@ -35,7 +38,7 @@ public class ExerciseGuideService {
      * @param userDetails
      * @throws ExerciseGuideNotFoundException 가이드를 찾을 수 없는 경우
      */
-    public void deleteExerciseGuide(Long guideId, UserDetails userDetails) {
+    public void deleteExerciseGuide(Long guideId, CustomOAuth2User userDetails) {
 
         ExerciseGuide exerciseGuide = exerciseGuideRepository.findById(guideId)
             .orElseThrow(ExerciseGuideNotFoundException::new);
@@ -52,7 +55,7 @@ public class ExerciseGuideService {
      * @param userDetails   현재 로그인한 사용자 정보
      * @throws ExerciseGuideUnauthorizedDeletionException 삭제 권한이 없는 경우 발생하는 예외
      */
-    private void validateDeletionPermission(ExerciseGuide exerciseGuide, UserDetails userDetails) {
+    private void validateDeletionPermission(ExerciseGuide exerciseGuide, CustomOAuth2User userDetails) {
         // 관리자 권한 확인
         if (userDetails.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"))) {
             return; // 관리자는 모든 가이드를 삭제할 수 있음

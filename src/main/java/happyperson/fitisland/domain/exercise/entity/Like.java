@@ -1,6 +1,7 @@
 package happyperson.fitisland.domain.exercise.entity;
 
 import happyperson.fitisland.common.base.BaseEntity;
+import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

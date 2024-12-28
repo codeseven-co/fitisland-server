@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.exercise.entity;
+package happyperson.fitisland.domain.exercise.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

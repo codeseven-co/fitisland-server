@@ -1,13 +1,11 @@
 package happyperson.fitisland.domain.exercise.controller;
 
 import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
-import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideCreateResponse;
-import happyperson.fitisland.domain.exercise.dto.response.ExerciseGuideDetailResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideCreateResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
 import happyperson.fitisland.domain.exercise.service.ExerciseGuideService;
-import happyperson.fitisland.domain.exercise.service.LikeService;
 import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
 import jakarta.validation.Valid;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,14 +16,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/exerciseGuide")
+@RequestMapping("/api/v1/exercise-guides")
 public class ExerciseGuideController {
 
     private final ExerciseGuideService exerciseGuideService;
@@ -36,7 +33,7 @@ public class ExerciseGuideController {
      * @return ExerciseGuideDetailResponse
      */
     @GetMapping("/{guideId}")
-    public ExerciseGuideDetailResponse getExerciseGuide(@PathVariable Long guideId) {
+    public ExerciseGuideDetailResponse getExerciseGuide(@PathVariable("guideId") Long guideId) {
 
         return exerciseGuideService.findExerciseGuideDetail(guideId);
     }
@@ -48,23 +45,16 @@ public class ExerciseGuideController {
     public ExerciseGuideCreateResponse createExerciseGuide(
         @Valid ExerciseGuideCreateRequest request,
         @AuthenticationPrincipal UserDetails userDetails) {
-        return exerciseGuideService.saveExerciseGuide(request,userDetails);
+        return exerciseGuideService.saveExerciseGuide(request, userDetails);
     }
-
-    /**
-     * 수정
-     */
-//    @PatchMapping
-//    public ExerciseGuideUpdateResponse updateExerciseGuide() {
-//
-//    }
+    //수정
 
     /**
      * 삭제(유저아이디수정하기)
      */
     @DeleteMapping("/{guideId}")
     public ResponseEntity deleteExerciseGuide(@PathVariable Long guideId,
-        @AuthenticationPrincipal UserDetails userDetails) {
+        @AuthenticationPrincipal CustomOAuth2User userDetails) {
         exerciseGuideService.deleteExerciseGuide(guideId,userDetails);
         return ResponseEntity.ok(HttpStatus.OK);
     }
