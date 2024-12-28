@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.exercise.dto.response.workout;
+package happyperson.fitisland.domain.exercise.dto.response.exerciseguide;
 
 import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuideVideoUrl;
 import lombok.Builder;

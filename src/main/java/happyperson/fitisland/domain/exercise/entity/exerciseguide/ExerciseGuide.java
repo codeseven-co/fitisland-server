@@ -1,6 +1,7 @@
 package happyperson.fitisland.domain.exercise.entity.exerciseguide;
 
 import happyperson.fitisland.common.base.BaseEntity;
+import happyperson.fitisland.domain.exercise.entity.Like;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,9 @@ public class ExerciseGuide extends BaseEntity{
 
     @OneToMany(mappedBy = "exerciseGuide", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseGuideVideoUrl> videoUrlList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "exerciseGuide", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>(); // 좋아요와의 연관관계 추가
 
     public boolean isCreatedBy(Long userId) {
         return this.getCreatedBy().equals(userId);

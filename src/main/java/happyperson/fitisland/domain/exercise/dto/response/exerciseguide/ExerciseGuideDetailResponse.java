@@ -1,7 +1,6 @@
 package happyperson.fitisland.domain.exercise.dto.response.exerciseguide;
 
 
-import happyperson.fitisland.domain.exercise.dto.response.workout.ExerciseGuideVideoUrlDto;
 import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,10 +14,11 @@ public record ExerciseGuideDetailResponse(
     String imagePath,
     String originName,
     List<ExerciseGuideContentDto> contents,
-    List<ExerciseGuideVideoUrlDto> videoUrls
+    List<ExerciseGuideVideoUrlDto> videoUrls,
+    Boolean isLike
 ) {
 
-    public static ExerciseGuideDetailResponse of(ExerciseGuide exerciseGuide) {
+    public static ExerciseGuideDetailResponse of(ExerciseGuide exerciseGuide, Boolean isLike) {
         return ExerciseGuideDetailResponse.builder()
             .id(exerciseGuide.getId())
             .titleKo(exerciseGuide.getTitleKo())
@@ -31,6 +31,7 @@ public record ExerciseGuideDetailResponse(
             .videoUrls(exerciseGuide.getVideoUrlList().stream()
                 .map(ExerciseGuideVideoUrlDto::of)
                 .collect(Collectors.toList()))
+            .isLike(isLike)
             .build();
     }
 }

@@ -23,12 +23,15 @@ public class ExerciseGuideService {
     /**
      * 운동가이드 조회
      */
-    public ExerciseGuideDetailResponse findExerciseGuideDetail(Long guideId) {
+    public ExerciseGuideDetailResponse findExerciseGuideDetail(Long guideId, Long userId) {
 
         ExerciseGuide savedExerciseGuide = exerciseGuideRepository.findById(guideId)
             .orElseThrow(ExerciseGuideNotFoundException::new);
 
-        return ExerciseGuideDetailResponse.of(savedExerciseGuide);
+        Boolean isLike = savedExerciseGuide.getLikes().stream()
+            .anyMatch(like -> like.getUser().getId().equals(userId));
+
+        return ExerciseGuideDetailResponse.of(savedExerciseGuide, isLike);
     }
 
     /**

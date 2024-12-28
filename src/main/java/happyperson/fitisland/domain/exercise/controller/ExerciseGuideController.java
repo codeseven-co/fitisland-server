@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -33,31 +34,22 @@ public class ExerciseGuideController {
      * @return ExerciseGuideDetailResponse
      */
     @GetMapping("/{guideId}")
-    public ExerciseGuideDetailResponse getExerciseGuide(@PathVariable("guideId") Long guideId) {
+    public ExerciseGuideDetailResponse getExerciseGuide(
+        @PathVariable("guideId") Long guideId,
+        @RequestParam("userId") Long userId
+    ) {
 
-        return exerciseGuideService.findExerciseGuideDetail(guideId);
+        return exerciseGuideService.findExerciseGuideDetail(guideId, userId);
     }
 
     /**
      * 생성(유저아이디 수정하기)
      */
-    @PostMapping
-    public ExerciseGuideCreateResponse createExerciseGuide(
-        @Valid ExerciseGuideCreateRequest request,
-        @AuthenticationPrincipal UserDetails userDetails) {
-        return exerciseGuideService.saveExerciseGuide(request, userDetails);
-    }
     //수정
 
     /**
      * 삭제(유저아이디수정하기)
      */
-    @DeleteMapping("/{guideId}")
-    public ResponseEntity deleteExerciseGuide(@PathVariable Long guideId,
-        @AuthenticationPrincipal CustomOAuth2User userDetails) {
-        exerciseGuideService.deleteExerciseGuide(guideId,userDetails);
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
 
     /**
      * 운동 가이드 목록 보기
