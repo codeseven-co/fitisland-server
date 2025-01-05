@@ -1,7 +1,7 @@
-package happyperson.fitisland.common.exception.api;
+package happyperson.fitisland.global.exception.api;
 
-import happyperson.fitisland.common.exception.CustomExceptionImpl;
-import happyperson.fitisland.common.exception.response.Validation;
+import happyperson.fitisland.global.exception.CustomExceptionImpl;
+import happyperson.fitisland.global.exception.response.Validation;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

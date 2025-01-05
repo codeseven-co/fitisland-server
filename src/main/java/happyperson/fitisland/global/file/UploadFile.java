@@ -1,4 +1,4 @@
-package happyperson.fitisland.common.file;
+package happyperson.fitisland.global.file;
 
 import lombok.Data;
 

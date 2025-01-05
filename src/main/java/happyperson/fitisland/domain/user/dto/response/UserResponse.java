@@ -1,6 +1,6 @@
 package happyperson.fitisland.domain.user.dto.response;
 
-import happyperson.fitisland.common.util.DateUtil;
+import happyperson.fitisland.global.util.DateUtil;
 import happyperson.fitisland.domain.user.entity.Profile;
 import happyperson.fitisland.domain.user.entity.User;
 import lombok.Builder;

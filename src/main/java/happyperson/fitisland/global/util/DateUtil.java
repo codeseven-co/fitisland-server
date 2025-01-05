@@ -1,4 +1,4 @@
-package happyperson.fitisland.common.util;
+package happyperson.fitisland.global.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

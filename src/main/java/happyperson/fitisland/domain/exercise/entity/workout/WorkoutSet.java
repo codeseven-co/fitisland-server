@@ -1,6 +1,6 @@
 package happyperson.fitisland.domain.exercise.entity.workout;
 
-import happyperson.fitisland.common.base.BaseEntity;
+import happyperson.fitisland.global.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
