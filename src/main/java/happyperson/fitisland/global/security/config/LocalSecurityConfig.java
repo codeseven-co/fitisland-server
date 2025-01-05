@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.oauthjwt.config;
+package happyperson.fitisland.global.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
