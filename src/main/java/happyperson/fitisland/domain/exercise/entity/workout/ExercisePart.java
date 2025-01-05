@@ -24,7 +24,7 @@ public class ExercisePart {
     private String part;
 
     // Exercise와의 관계는 ExerciseBodyPart를 통해 설정
-    @OneToMany(mappedBy = "bodyPart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "exercisePart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ExerciseGuidePart> exerciseBodyParts = new HashSet<>();
 
 }
