@@ -1,4 +1,4 @@
-package happyperson.fitisland.common.base;
+package happyperson.fitisland.global.base;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

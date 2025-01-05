@@ -1,6 +1,6 @@
-package happyperson.fitisland.common.exception;
+package happyperson.fitisland.global.exception;
 
-import happyperson.fitisland.common.exception.response.ErrorResponse;
+import happyperson.fitisland.global.exception.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

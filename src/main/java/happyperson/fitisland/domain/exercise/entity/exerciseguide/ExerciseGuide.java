@@ -1,6 +1,6 @@
 package happyperson.fitisland.domain.exercise.entity.exerciseguide;
 
-import happyperson.fitisland.common.base.BaseEntity;
+import happyperson.fitisland.global.base.BaseEntity;
 import happyperson.fitisland.domain.exercise.entity.Like;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

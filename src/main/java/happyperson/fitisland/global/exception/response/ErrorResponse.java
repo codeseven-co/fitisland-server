@@ -1,4 +1,4 @@
-package happyperson.fitisland.common.exception.response;
+package happyperson.fitisland.global.exception.response;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package happyperson.fitisland.domain.oauthjwt.oauth2;
+package happyperson.fitisland.global.security.oauth2;
 
 import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
-import happyperson.fitisland.domain.oauthjwt.jwt.JWTUtil;
+import happyperson.fitisland.global.security.jwt.JWTUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

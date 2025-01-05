@@ -1,6 +1,6 @@
-package happyperson.fitisland.common.exception;
+package happyperson.fitisland.global.exception;
 
-import happyperson.fitisland.common.exception.response.Validation;
+import happyperson.fitisland.global.exception.response.Validation;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;

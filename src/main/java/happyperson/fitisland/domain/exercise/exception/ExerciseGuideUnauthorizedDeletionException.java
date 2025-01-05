@@ -1,6 +1,6 @@
 package happyperson.fitisland.domain.exercise.exception;
 
-import happyperson.fitisland.common.exception.CustomException;
+import happyperson.fitisland.global.exception.CustomException;
 import org.springframework.http.HttpStatus;
 
 public class ExerciseGuideUnauthorizedDeletionException extends CustomException {

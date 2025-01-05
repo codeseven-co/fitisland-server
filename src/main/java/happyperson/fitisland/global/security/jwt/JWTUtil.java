@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.oauthjwt.jwt;
+package happyperson.fitisland.global.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
