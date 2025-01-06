@@ -19,8 +19,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 회원 아이디
-    private String username;
+    // 회원 아이디(이메일)
+    private String email;
 
     // 비밀번호
     private String password;
@@ -30,9 +30,6 @@ public class User {
 
     // 닉네임
     private String nickname;
-
-    // 이메일
-    private String email;
 
     // 스프링 시큐리티 내 권한
     private String role;
@@ -50,17 +47,16 @@ public class User {
 
     @Builder
     public User(
-            Long id, String username, String password,
+            Long id, String password,
             String name, String nickname, String email, String role,
             LocalDateTime createdAt, LocalDateTime lastLoginAt,
             Profile profile
     ) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
-        this.email = email;
         this.role = role;
         this.createdAt = createdAt;
         this.lastLoginAt = lastLoginAt;

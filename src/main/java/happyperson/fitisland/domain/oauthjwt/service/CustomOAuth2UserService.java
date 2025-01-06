@@ -4,7 +4,6 @@ import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
 import happyperson.fitisland.domain.oauthjwt.dto.GoogleResponse;
 import happyperson.fitisland.domain.oauthjwt.dto.NaverResponse;
 import happyperson.fitisland.domain.oauthjwt.dto.OAuth2Response;
-import happyperson.fitisland.domain.oauthjwt.dto.UserDTO;
 import happyperson.fitisland.domain.user.entity.User;
 import happyperson.fitisland.domain.user.repository.UserRepository;
 
@@ -50,12 +49,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String username = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 
         //DB에서 유저 정보 가져오기
-        Optional<User> existData = userRepository.findByUsername(username);
+        Optional<User> existData = userRepository.findByEmail(username);
 
         User user = existData.orElseGet(() -> {
             // 사용자가 존재하지 않으면 새로운 UserEntity 생성
             return User.builder()
-                    .username(username)
                     .email(oAuth2Response.getEmail())
                     .name(oAuth2Response.getName())
                     .role("USER")
