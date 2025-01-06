@@ -56,8 +56,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         try {
-            String username = jwtUtil.getUsername(accessToken);
-            User user = userRepository.findByUsername(username)
+            String email = jwtUtil.getEmail(accessToken);
+            User user = userRepository.findByEmail(email)
                     .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
 
             // 3. 시큐리티 내 권한 처리를 위해 'UsernamePasswordAuthenticationToken'을 만들고, Authentication 객체를 만든다.
