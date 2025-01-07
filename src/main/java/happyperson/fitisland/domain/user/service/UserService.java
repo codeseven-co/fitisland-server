@@ -24,7 +24,6 @@ public class UserService {
         checkDuplicateEmail(request.getEmail());
         checkDuplicateNickname(request.getNickname());
 
-
         userRepository.save(request.toEntity(passwordEncoder.encode(request.getPassword())));
     }
 
