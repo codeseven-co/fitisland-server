@@ -1,6 +1,6 @@
 package happyperson.fitisland.global.security.jwt;
 
-import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
+import happyperson.fitisland.global.security.oauth2.CustomOAuth2User;
 import happyperson.fitisland.domain.user.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

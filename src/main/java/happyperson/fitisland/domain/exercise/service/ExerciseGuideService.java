@@ -8,7 +8,7 @@ import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
 import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
-import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
+import happyperson.fitisland.global.security.oauth2.CustomOAuth2User;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
