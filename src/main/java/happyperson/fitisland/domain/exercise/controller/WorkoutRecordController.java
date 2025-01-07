@@ -2,7 +2,7 @@ package happyperson.fitisland.domain.exercise.controller;
 
 import happyperson.fitisland.domain.exercise.entity.workout.WorkoutRecord;
 import happyperson.fitisland.domain.exercise.service.WorkoutRecordService;
-import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
+import happyperson.fitisland.global.security.oauth2.CustomOAuth2User;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

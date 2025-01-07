@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.oauthjwt.dto;
+package happyperson.fitisland.global.security.oauth2;
 
 import happyperson.fitisland.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,8 @@
-package happyperson.fitisland.domain.oauthjwt.service;
+package happyperson.fitisland.global.security.oauth2;
 
-import happyperson.fitisland.domain.oauthjwt.dto.CustomOAuth2User;
-import happyperson.fitisland.domain.oauthjwt.dto.GoogleResponse;
-import happyperson.fitisland.domain.oauthjwt.dto.NaverResponse;
-import happyperson.fitisland.domain.oauthjwt.dto.OAuth2Response;
+import happyperson.fitisland.domain.user.dto.response.GoogleResponse;
+import happyperson.fitisland.domain.user.dto.response.NaverResponse;
+import happyperson.fitisland.domain.user.dto.response.OAuth2Response;
 import happyperson.fitisland.domain.user.entity.User;
 import happyperson.fitisland.domain.user.repository.UserRepository;
 

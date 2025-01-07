@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.oauthjwt.dto;
+package happyperson.fitisland.domain.user.dto.response;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package happyperson.fitisland.domain.oauthjwt.controller;
+package happyperson.fitisland.domain.user.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
