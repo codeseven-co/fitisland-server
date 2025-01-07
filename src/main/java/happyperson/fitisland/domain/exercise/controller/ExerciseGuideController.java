@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/exercise-guides")
+@RequestMapping("/api/v1/exercise")
 public class ExerciseGuideController {
 
     private final ExerciseGuideService exerciseGuideService;
 
     /**
      * 가이드 상세 보기(완료)
-     * @param @PathVariable Long guideId
+     * @param @PathVariable Long exerciseId
      * @return ExerciseGuideDetailResponse
      */
-    @GetMapping("/{guideId}")
-    public ResponseEntity<ExerciseGuideDetailResponse> getExerciseGuide(
+    @GetMapping("/{exerciseId}")
+    public ResponseEntity<ExerciseGuideDetailResponse> getExerciseDetail(
         @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable Long guideId
+        @PathVariable Long exerciseId
     ) {
-        return ResponseEntity.ok(exerciseGuideService.findExerciseGuideDetail(userDetails, guideId));
+        return ResponseEntity.ok(exerciseGuideService.findExerciseGuideDetail(userDetails, exerciseId));
     }
 
     /**
