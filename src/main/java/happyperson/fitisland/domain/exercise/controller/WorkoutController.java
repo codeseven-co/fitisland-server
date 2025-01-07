@@ -1,7 +1,7 @@
 package happyperson.fitisland.domain.exercise.controller;
 
 import happyperson.fitisland.domain.exercise.entity.workout.WorkoutRecord;
-import happyperson.fitisland.domain.exercise.service.WorkoutRecordService;
+import happyperson.fitisland.domain.exercise.service.WorkoutService;
 import happyperson.fitisland.global.security.oauth2.CustomOAuth2User;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/workout-records")
-public class WorkoutRecordController {
+@RequestMapping("/api/v1/workout")
+public class WorkoutController {
 
-    private final WorkoutRecordService workoutRecordService;
+    private final WorkoutService workoutService;
 
     /**
      * WorkoutRecord 일별 목록 조회
@@ -29,7 +29,7 @@ public class WorkoutRecordController {
         @AuthenticationPrincipal CustomOAuth2User user,
         @PathVariable LocalDate date) {
 
-        return workoutRecordService.getWorkoutRecordsByDate(user.getId(), date);
+        return workoutService.getWorkoutRecordsByDate(user.getId(), date);
     }
 
 }
