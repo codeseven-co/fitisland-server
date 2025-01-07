@@ -7,6 +7,9 @@ import happyperson.fitisland.domain.exercise.service.ExerciseGuideService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +30,11 @@ public class ExerciseGuideController {
      * @return ExerciseGuideDetailResponse
      */
     @GetMapping("/{guideId}")
-    public ExerciseGuideDetailResponse getExerciseGuide(
-        @PathVariable("guideId") Long guideId,
-        @RequestParam(value = "userId", required = false) Long userId // required = false 설정
+    public ResponseEntity<ExerciseGuideDetailResponse> getExerciseGuide(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable Long guideId
     ) {
-
-        return exerciseGuideService.findExerciseGuideDetail(guideId, userId);
+        return ResponseEntity.ok(exerciseGuideService.findExerciseGuideDetail(userDetails, guideId));
     }
 
     /**
