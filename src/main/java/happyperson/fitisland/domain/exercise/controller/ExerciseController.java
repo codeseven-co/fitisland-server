@@ -2,9 +2,12 @@ package happyperson.fitisland.domain.exercise.controller;
 
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideListResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseResponse;
 import happyperson.fitisland.domain.exercise.service.ExerciseGuideService;
 
 import java.util.List;
+
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +35,7 @@ public class ExerciseController {
     @GetMapping("/{exerciseId}")
     public ResponseEntity<ExerciseGuideDetailResponse> getExerciseDetail(
         @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable Long exerciseId
+        @PathVariable("exerciseId") Long exerciseId
     ) {
         return ResponseEntity.ok(exerciseGuideService.findExerciseGuideDetail(userDetails, exerciseId));
     }
@@ -45,6 +48,11 @@ public class ExerciseController {
         @RequestParam(value = "userId", required = false) Long userId // required = false 설정
     ) {
         return exerciseGuideService.getExerciseGuideList(userId);
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<List<ExerciseResponse.Type>> getExerciseCategory() {
+        return ResponseEntity.ok(exerciseGuideService.getExerciseCategory());
     }
 
     /**

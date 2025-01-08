@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,10 @@ public class ExercisePartType {
     @JoinColumn(name = "exercise_type_id")
     private ExerciseType exerciseType;
 
+    @Builder
+    public ExercisePartType(Long id, ExercisePart exercisePart, ExerciseType exerciseType) {
+        this.id = id;
+        this.exercisePart = exercisePart;
+        this.exerciseType = exerciseType;
+    }
 }

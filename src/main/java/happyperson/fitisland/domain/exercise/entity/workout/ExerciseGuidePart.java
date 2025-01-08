@@ -27,5 +27,4 @@ public class ExerciseGuidePart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_part_id")
     private ExercisePart exercisePart;
-
 }

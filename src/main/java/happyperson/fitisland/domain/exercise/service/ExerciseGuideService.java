@@ -4,10 +4,12 @@ import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequ
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideCreateResponse;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideListResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseResponse;
 import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
 import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
+import happyperson.fitisland.domain.exercise.repository.ExerciseTypeRepository;
 import happyperson.fitisland.domain.exercise.repository.LikeRepository;
 import happyperson.fitisland.domain.user.entity.User;
 import happyperson.fitisland.domain.user.exception.UserNotFoundException;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Service;
 public class ExerciseGuideService {
 
     private final ExerciseGuideRepository exerciseGuideRepository;
+    private final ExerciseTypeRepository exerciseTypeRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
 
@@ -33,11 +36,16 @@ public class ExerciseGuideService {
      * 운동가이드 상세 조회
      */
     public ExerciseGuideDetailResponse findExerciseGuideDetail(UserDetails userDetails, Long guideId) {
+        ExerciseGuide exerciseGuide = exerciseGuideRepository.findById(guideId)
+                .orElseThrow(ExerciseGuideNotFoundException::new);
+
+        // 사용자 정보가 없을 경우 "좋아요 누르지 않음" 상태로 반환
+        if (userDetails == null) {
+            return ExerciseGuideDetailResponse.of(exerciseGuide, false);
+        }
+
         User user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(UserNotFoundException::new);
-
-        ExerciseGuide exerciseGuide = exerciseGuideRepository.findById(guideId)
-            .orElseThrow(ExerciseGuideNotFoundException::new);
 
         Boolean isLike = likeRepository.existsByUserIdAndExerciseGuideId(user.getId(), exerciseGuide.getId());
 
@@ -95,6 +103,12 @@ public class ExerciseGuideService {
                 return ExerciseGuideListResponse.of(exerciseGuide, isLike); // of 메서드 사용
             })
             .collect(Collectors.toList());
+    }
+
+    public List<ExerciseResponse.Type> getExerciseCategory() {
+        return exerciseTypeRepository.findAll().stream()
+                .map(ExerciseResponse.Type::new)
+                .collect(Collectors.toList());
     }
 
     /**
