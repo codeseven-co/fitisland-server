@@ -1,5 +1,6 @@
 package happyperson.fitisland.domain.user.entity;
 
+import happyperson.fitisland.domain.user.dto.request.UserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -61,5 +62,13 @@ public class User {
         this.createdAt = createdAt;
         this.lastLoginAt = lastLoginAt;
         this.profile = profile;
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
