@@ -82,7 +82,7 @@ public class SecurityConfig {
                 );
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/join", "/error", "/health").permitAll()
+                        .requestMatchers("/", "/login", "/join", "/error", "/health", "/api/v1/exercise/**").permitAll()
                         .anyRequest().authenticated());
         http
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));

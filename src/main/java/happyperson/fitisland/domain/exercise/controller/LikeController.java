@@ -23,7 +23,7 @@ public class LikeController {
     @PostMapping("/{exerciseGuideId}")
     public ResponseEntity<Void> addLike(
         @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable Long exerciseGuideId
+        @PathVariable("exerciseGuideId") Long exerciseGuideId
     ) {
         likeService.addLike(userDetails, exerciseGuideId);
         return ResponseEntity.ok().build();
@@ -32,7 +32,7 @@ public class LikeController {
     @DeleteMapping("/{exerciseGuideId}")
     public ResponseEntity<Void> deleteLike(
         @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable Long exerciseGuideId
+        @PathVariable("exerciseGuideId") Long exerciseGuideId
     ) {
         likeService.deleteLike(userDetails, exerciseGuideId);
         return ResponseEntity.ok().build();
