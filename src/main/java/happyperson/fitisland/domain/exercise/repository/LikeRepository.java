@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LikeRepository extends JpaRepository<Like,Long> {
 
     Optional<Like> findByUserIdAndExerciseGuideId(Long userId, Long exerciseGuideId);
+    Boolean existsByUserIdAndExerciseGuideId(Long userId, Long exerciseGuideId);
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class WorkoutRecordService {
+public class WorkoutService {
 
     private final WorkoutRecordRepository workoutRecordRepository;
 

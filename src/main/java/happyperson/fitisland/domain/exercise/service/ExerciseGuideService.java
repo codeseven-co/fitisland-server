@@ -8,6 +8,10 @@ import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
 import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
+import happyperson.fitisland.domain.exercise.repository.LikeRepository;
+import happyperson.fitisland.domain.user.entity.User;
+import happyperson.fitisland.domain.user.exception.UserNotFoundException;
+import happyperson.fitisland.domain.user.repository.UserRepository;
 import happyperson.fitisland.global.security.oauth2.CustomOAuth2User;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,23 +26,22 @@ import org.springframework.stereotype.Service;
 public class ExerciseGuideService {
 
     private final ExerciseGuideRepository exerciseGuideRepository;
+    private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
 
     /**
-     * 운동가이드 조회
+     * 운동가이드 상세 조회
      */
-    public ExerciseGuideDetailResponse findExerciseGuideDetail(Long guideId, Long userId) {
+    public ExerciseGuideDetailResponse findExerciseGuideDetail(UserDetails userDetails, Long guideId) {
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(UserNotFoundException::new);
 
-        ExerciseGuide savedExerciseGuide = exerciseGuideRepository.findById(guideId)
+        ExerciseGuide exerciseGuide = exerciseGuideRepository.findById(guideId)
             .orElseThrow(ExerciseGuideNotFoundException::new);
 
-        Boolean isLike = false;
+        Boolean isLike = likeRepository.existsByUserIdAndExerciseGuideId(user.getId(), exerciseGuide.getId());
 
-        if (userId != null) { // userId가 있을 경우에만 isLike 여부 확인
-            isLike = savedExerciseGuide.getLikes().stream()
-                .anyMatch(like -> like.getUser().getId().equals(userId));
-        }
-
-        return ExerciseGuideDetailResponse.of(savedExerciseGuide, isLike);
+        return ExerciseGuideDetailResponse.of(exerciseGuide, isLike);
     }
 
     /**
