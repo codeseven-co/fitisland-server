@@ -1,13 +1,12 @@
 package happyperson.fitisland.domain.exercise.controller;
 
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
-import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideListResponse;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseSearch;
 import happyperson.fitisland.domain.exercise.service.ExerciseGuideService;
 
 import java.util.List;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -44,10 +42,11 @@ public class ExerciseController {
      * 운동 가이드 목록 보기 검색기능
      */
     @GetMapping
-    public List<ExerciseGuideListResponse> getExerciseGuideList(
-        @RequestParam(value = "userId", required = false) Long userId // required = false 설정
+    public ResponseEntity<List<ExerciseResponse.Detail>> getExercisesBySearch(
+            @AuthenticationPrincipal UserDetails userDetails,
+            ExerciseSearch search
     ) {
-        return exerciseGuideService.getExerciseGuideList(userId);
+        return ResponseEntity.ok(exerciseGuideService.getExercisesBySearch(userDetails, search));
     }
 
     @GetMapping("/category")

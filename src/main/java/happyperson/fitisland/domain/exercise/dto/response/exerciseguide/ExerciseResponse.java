@@ -1,5 +1,6 @@
 package happyperson.fitisland.domain.exercise.dto.response.exerciseguide;
 
+import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.entity.workout.ExercisePart;
 import happyperson.fitisland.domain.exercise.entity.workout.ExerciseType;
 import lombok.Data;
@@ -8,6 +9,25 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ExerciseResponse {
+
+    @Data
+    public static class Detail {
+        private Long id;
+        private String titleKo;
+        private String titleEn;
+        private String imagePath;
+        private String originName;
+        private Boolean isLike;
+
+        public Detail(ExerciseGuide exerciseGuide, Boolean isLike) {
+            this.id = exerciseGuide.getId();
+            this.titleKo = exerciseGuide.getTitleKo();
+            this.titleEn = exerciseGuide.getTitleEn();
+            this.imagePath = exerciseGuide.getImagePath();
+            this.originName = exerciseGuide.getOriginName();
+            this.isLike = isLike;
+        }
+    }
 
     @Data
     public static class Type {

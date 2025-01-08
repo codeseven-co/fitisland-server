@@ -1,22 +1,23 @@
 package happyperson.fitisland.domain.exercise.service;
 
 import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
-import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideCreateResponse;
-import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideDetailResponse;
-import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseGuideListResponse;
-import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.ExerciseResponse;
+import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.*;
+import happyperson.fitisland.domain.exercise.entity.Like;
 import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideNotFoundException;
 import happyperson.fitisland.domain.exercise.exception.ExerciseGuideUnauthorizedDeletionException;
 import happyperson.fitisland.domain.exercise.repository.ExerciseGuideRepository;
+import happyperson.fitisland.domain.exercise.repository.ExerciseQuery;
 import happyperson.fitisland.domain.exercise.repository.ExerciseTypeRepository;
 import happyperson.fitisland.domain.exercise.repository.LikeRepository;
 import happyperson.fitisland.domain.user.entity.User;
 import happyperson.fitisland.domain.user.exception.UserNotFoundException;
 import happyperson.fitisland.domain.user.repository.UserRepository;
 import happyperson.fitisland.global.security.oauth2.CustomOAuth2User;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,8 @@ public class ExerciseGuideService {
     private final ExerciseTypeRepository exerciseTypeRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+
+    private final ExerciseQuery exerciseQuery;
 
     /**
      * 운동가이드 상세 조회
@@ -62,13 +65,14 @@ public class ExerciseGuideService {
     public void deleteExerciseGuide(Long guideId, CustomOAuth2User userDetails) {
 
         ExerciseGuide exerciseGuide = exerciseGuideRepository.findById(guideId)
-            .orElseThrow(ExerciseGuideNotFoundException::new);
+                .orElseThrow(ExerciseGuideNotFoundException::new);
 
         // 작성자와 삭제 요청자 비교
         validateDeletionPermission(exerciseGuide, userDetails);
 
         exerciseGuideRepository.delete(exerciseGuide);
     }
+
     /**
      * 운동 가이드 삭제 권한 검증
      *
@@ -93,16 +97,26 @@ public class ExerciseGuideService {
         return null;
     }
 
-    public List<ExerciseGuideListResponse> getExerciseGuideList(Long userId) {
-        List<ExerciseGuide> exerciseGuides = exerciseGuideRepository.findAllWithLikes(); // 페이징 제외
+    public List<ExerciseResponse.Detail> getExercisesBySearch(UserDetails userDetails, ExerciseSearch search) {
+        List<ExerciseGuide> exercises = exerciseQuery.findExercisesBySearch(search);
 
-        return exerciseGuides.stream()
-            .map(exerciseGuide -> {
-                Boolean isLike = (userId != null) ? exerciseGuide.getLikes().stream()
-                    .anyMatch(like -> like.getUser().getId().equals(userId)) : null;
-                return ExerciseGuideListResponse.of(exerciseGuide, isLike); // of 메서드 사용
-            })
-            .collect(Collectors.toList());
+        // 사용자 정보가 없을 경우
+        if (userDetails == null) {
+            return exercises.stream()
+                    .map(e -> new ExerciseResponse.Detail(e, false))
+                    .collect(Collectors.toList());
+        }
+
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(UserNotFoundException::new);
+
+        List<Like> likes = likeRepository.findAllByUserId(user.getId());
+        return exercises.stream()
+                .map(e -> new ExerciseResponse.Detail(
+                        e, likes.stream()
+                        .anyMatch(l -> e.getId().equals(l.getExerciseGuide().getId())))
+                )
+                .collect(Collectors.toList());
     }
 
     public List<ExerciseResponse.Type> getExerciseCategory() {
