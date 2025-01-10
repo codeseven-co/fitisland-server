@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<UserResponse.ProfileDto> findProfile(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(userService.findProfile(userDetails.getUsername()));
+        return ResponseEntity.ok(userService.findRecentProfile(userDetails.getUsername()));
     }
 
     @PutMapping("/name")

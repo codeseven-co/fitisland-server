@@ -43,15 +43,11 @@ public class User {
     @CreatedDate
     private LocalDateTime lastLoginAt;
 
-    @OneToOne(mappedBy = "user")
-    private Profile profile;
-
     @Builder
     public User(
             Long id, String password,
             String name, String nickname, String email, String role,
-            LocalDateTime createdAt, LocalDateTime lastLoginAt,
-            Profile profile
+            LocalDateTime createdAt, LocalDateTime lastLoginAt
     ) {
         this.id = id;
         this.email = email;
@@ -61,7 +57,6 @@ public class User {
         this.role = role;
         this.createdAt = createdAt;
         this.lastLoginAt = lastLoginAt;
-        this.profile = profile;
     }
 
     public void updateName(String name) {
