@@ -3,10 +3,13 @@ package happyperson.fitisland.domain.user.service;
 import happyperson.fitisland.domain.user.dto.request.JoinRequest;
 import happyperson.fitisland.domain.user.dto.request.UserRequest;
 import happyperson.fitisland.domain.user.dto.response.UserResponse;
+import happyperson.fitisland.domain.user.entity.Profile;
 import happyperson.fitisland.domain.user.entity.User;
 import happyperson.fitisland.domain.user.exception.EmailAlreadyExistException;
 import happyperson.fitisland.domain.user.exception.NicknameAlreadyExistException;
+import happyperson.fitisland.domain.user.exception.ProfileNotFoundException;
 import happyperson.fitisland.domain.user.exception.UserNotFoundException;
+import happyperson.fitisland.domain.user.repository.ProfileQuery;
 import happyperson.fitisland.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final ProfileQuery profileQuery;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -49,10 +53,14 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserResponse.ProfileDto findProfile(String email) {
+    public UserResponse.ProfileDto findRecentProfile(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
-        return new UserResponse.ProfileDto(user.getProfile());
+        Profile profile = profileQuery.findRecentProfile(user.getId());
+        if (profile == null) {
+            throw new ProfileNotFoundException();
+        }
+        return new UserResponse.ProfileDto(profile);
     }
 
     @Transactional

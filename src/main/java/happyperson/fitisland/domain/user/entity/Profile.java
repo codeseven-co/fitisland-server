@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,31 +21,38 @@ public class Profile {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    // 프로필 기록 일자
+    private LocalDate date;
+
     // 키
-    private Integer height;
+    private Double height;
 
     // 몸무게
-    private Integer weight;
+    private Double weight;
 
     // 체지방률
-    @Enumerated(EnumType.STRING)
-    private BodyType bodyType;
+    private Double bodyFatPercentage;
 
     // 운동 목표
     @Enumerated(EnumType.STRING)
     private Target target;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;
 
     @Builder
-    public Profile(Long id, Gender gender, Integer height, Integer weight, BodyType bodyType, Target target, User user) {
+    public Profile(
+            Long id, Gender gender, LocalDate date,
+            Double height, Double weight, Double bodyFatPercentage,
+            Target target, User user
+    ) {
         this.id = id;
         this.gender = gender;
+        this.date = date;
         this.height = height;
         this.weight = weight;
-        this.bodyType = bodyType;
+        this.bodyFatPercentage = bodyFatPercentage;
         this.target = target;
         this.user = user;
     }

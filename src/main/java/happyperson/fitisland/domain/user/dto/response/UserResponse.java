@@ -6,6 +6,8 @@ import happyperson.fitisland.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 public class UserResponse {
 
     @Data
@@ -32,18 +34,20 @@ public class UserResponse {
     public static class ProfileDto {
         private Long id;
         private String gender;
-        private Integer height;
-        private Integer weight;
-        private String body_fat;
+        private LocalDate date;
+        private Double height;
+        private Double weight;
+        private Double bodyFatPercentage;
         private String target;
 
         @Builder
         public ProfileDto(Profile profile) {
             this.id = profile.getId();
             this.gender = profile.getGender().toString();
+            this.date = profile.getDate();
             this.height = profile.getHeight();
             this.weight = profile.getWeight();
-            this.body_fat = profile.getBodyType().toString();
+            this.bodyFatPercentage = profile.getBodyFatPercentage();
             this.target = profile.getTarget().toString();
         }
     }

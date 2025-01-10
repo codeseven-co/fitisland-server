@@ -1,6 +1,5 @@
 package happyperson.fitisland.domain.exercise.service;
 
-import happyperson.fitisland.domain.exercise.dto.request.ExerciseGuideCreateRequest;
 import happyperson.fitisland.domain.exercise.dto.response.exerciseguide.*;
 import happyperson.fitisland.domain.exercise.entity.Like;
 import happyperson.fitisland.domain.exercise.entity.exerciseguide.ExerciseGuide;
@@ -90,11 +89,6 @@ public class ExerciseGuideService {
         if (!exerciseGuide.isCreatedBy(1L)) { //변경예정
             throw new ExerciseGuideUnauthorizedDeletionException();
         }
-    }
-
-    public ExerciseGuideCreateResponse saveExerciseGuide(ExerciseGuideCreateRequest request, UserDetails userDetails) {
-//        exerciseGuideRepository.save()
-        return null;
     }
 
     public List<ExerciseResponse.Detail> getExercisesBySearch(UserDetails userDetails, ExerciseSearch search) {
