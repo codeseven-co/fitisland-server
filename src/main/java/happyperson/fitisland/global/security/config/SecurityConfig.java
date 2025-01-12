@@ -5,6 +5,8 @@ import happyperson.fitisland.global.security.jwt.CustomAuthenticationEntryPoint;
 import happyperson.fitisland.global.security.jwt.JwtAuthenticationFilter;
 import happyperson.fitisland.global.security.jwt.JwtAuthorizationFilter;
 import happyperson.fitisland.global.security.jwt.JWTUtil;
+import happyperson.fitisland.global.security.oauth2.CustomOAuth2UserService;
+import happyperson.fitisland.global.security.oauth2.CustomSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -30,17 +30,14 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomSuccessHandler customSuccessHandler;
     private final UserRepository userRepository;
     private final JWTUtil jwtUtil;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -84,6 +81,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/join", "/error", "/health", "/api/v1/exercise/**").permitAll()
                         .anyRequest().authenticated());
+        http
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(
+                                userInfoEndpoint -> userInfoEndpoint.userService(customOAuth2UserService))
+                        .successHandler(customSuccessHandler));
         http
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
