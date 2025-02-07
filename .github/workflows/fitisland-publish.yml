@@ -54,7 +54,7 @@ jobs:
 
       # job 간 이동을 위해서 jar 파일 업로드
       - name: Upload JAR as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-jar
           path: build/libs/*SNAPSHOT.jar
